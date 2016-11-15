@@ -1,0 +1,53 @@
+<h2><%= @product.title %></h2>
+
+<h5>
+  <%# if user_signed_in?  %>
+    <% if @favorite.present? %>
+      <%= link_to "Remove from Favorites", favorite_path(@favorite), method: :delete %>
+    <% else %>
+      <%= link_to "Add to Favorites", product_favorites_path(@product), method: :post %>
+    <% end %>
+  <%# end %>
+  (Added to <%= pluralize @product.favorites.count, "list" %>)
+</h5>
+
+
+<section class="beer-details">
+    <p><%= @product.description %></p>
+    <p>Price: <%= number_to_currency(@product.price) %></p>
+    <p>Wholesale (10 case minimum): <%= number_to_currency(@product.sale_price) %></p>
+    <%= link_to 'EDIT', edit_product_path(@product) %>
+    <%= link_to 'DELETE', product_path(@product),
+                        method: :delete,
+                        data: { confirm: 'Are you sure? Be vewy vewy careful...' } %>
+</section>
+
+<section class="beer-reviews">
+
+    <h5 class="">Add your review:</h2>
+
+
+    <%#= form_for @review, url: product_reviews_path(@product) do |f| %>
+    <%= form_for [@product, @review] do |f| %>
+      <div>
+        <%= f.label :body, 'Review' %>
+        <%= f.text_area :body %>
+      </div>
+      <div>
+        <%= f.label :star_count %>
+        <%= f.select(:star_count, options_for_select([["Rate the #{@product.title} -----"], ['⭐️', 1], ['⭐️⭐️', 2], ['⭐️⭐️⭐️', 3], ['⭐️⭐️⭐️⭐️', 4], ['⭐️⭐️⭐️⭐️⭐️', 5]])) %>
+      </div>
+      <%= f.submit %>
+      <%= @review.errors.full_messages.join(", ") %>
+    <% end %>
+
+    <% @product.reviews.each do |review| %>
+      <div class="review">
+        <%= review.star_count.to_i %>⭐️
+        <%= review.body %>&nbsp;
+        &mdash;<%= review.user.first_name %>&nbsp;
+        <%= link_to 'Delete review', review_path(review), method: :delete %>
+      </div>
+    <% end %>
+
+</section>

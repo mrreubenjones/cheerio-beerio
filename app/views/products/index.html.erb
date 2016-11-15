@@ -1,0 +1,21 @@
+<h1><span>🍻</span><br />Beer Catalogue</h1>
+  <table width="100%">
+    <tr>
+      <th>Product</th>
+      <th>Description</th>
+      <th>Price (per case)</th>
+      <th><span class="u-pull-right">Wholesale discount</span></th>
+    </tr>
+  <% @products.each do |p| %>
+    <tr>
+      <td>
+        <%= link_to p.title, product_path(p) %>
+        (<%= pluralize p.favorites.count, "favorite" %>)
+      </td>
+      <td><%= p.description %></td>
+      <td><%= p.price %></td>
+      <td><span class="u-pull-right"><%= p.sale_price %></span></td>
+    </tr>
+  <% end %>
+  </table>
+

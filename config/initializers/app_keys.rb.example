@@ -1,0 +1,6 @@
+# Copy this file
+# Rename it to app_keys.rb
+# Update API credentials
+
+ENV['TWITTER_CONSUMER_KEY'] = '???'
+ENV['TWITTER_CONSUMER_SECRET'] = '???'

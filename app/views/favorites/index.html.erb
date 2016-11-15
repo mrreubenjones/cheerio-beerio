@@ -1,0 +1,21 @@
+<h1>My Favorites</h1>
+
+<table>
+  <tr>
+    <th>Beer</th>
+    <th>Description</th>
+    <th>Category</th>
+    <th>My rating</th>
+    <th>Price</th>
+  </tr>
+<% @favorites.each do |f| %>
+<tr>
+  <td><%= f.product_title %></td>
+  <td><%= f.product_description %></td>
+  <td><%= f.product_category.name %></td>
+  <td><%#= f.star_count %>?</td>
+  <td><%= f.product_price %></td>
+</tr>
+
+<% end %>
+</table>
